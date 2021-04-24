@@ -34,7 +34,7 @@ class Laboratorio extends StatefulWidget {
 
 class _LaboratorioState extends State<Laboratorio> {
 
-  List<String> opciones = cuestionario.getOpciones();
+
   void verificarRespuesta(String respuestaUsuario){
     String respuestaCorrecta = cuestionario.getRespuesta();
 
@@ -152,17 +152,17 @@ class _LaboratorioState extends State<Laboratorio> {
               padding: EdgeInsets.all(15.0),
               child: FlatButton(
                 textColor: Colors.white,
-                color: Colors.yellow,
+                color: Colors.yellow.shade700,
                 child: Text(
-                  opciones[opcion1],
+                  cuestionario.opciones[cuestionario.opcion1],
                   style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.white
                   ),
                 ),
                 onPressed: () {
-                  opciones = cuestionario.getOpciones();
-                  verificarRespuesta(opciones[opcion1]);
+
+                  verificarRespuesta( cuestionario.opciones[cuestionario.opcion1]);
 
                   setState(() {
                     cuestionario.siguientePregunta();
@@ -191,15 +191,15 @@ class _LaboratorioState extends State<Laboratorio> {
                 textColor: Colors.white,
                 color: Colors.red,
                 child: Text(
-                  opciones[opcion2],
+                  cuestionario.opciones[cuestionario.opcion2],
                   style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.white
                   ),
                 ),
                 onPressed: () {
-                  opciones = cuestionario.getOpciones();
-                  verificarRespuesta(opciones[opcion2]);
+
+                  verificarRespuesta(cuestionario.opciones[cuestionario.opcion2]);
                   setState(() {
                     cuestionario.siguientePregunta();
                     if (valorPregunta.length == 9) {
@@ -226,19 +226,19 @@ class _LaboratorioState extends State<Laboratorio> {
                 textColor: Colors.white,
                 color: Colors.orange,
                 child: Text(
-                  opciones[opcion3],
+                  cuestionario.opciones[cuestionario.opcion3],
                   style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.white
                   ),
                 ),
                 onPressed: () {
-                  verificarRespuesta(opciones[opcion3]);
-                  opciones = cuestionario.getOpciones();
+                  verificarRespuesta(cuestionario.opciones[cuestionario.opcion3]);
+
                   setState(() {
                     cuestionario.siguientePregunta();
                     if (valorPregunta.length == 9) {
-                      // msj_nota(cantidad);
+                       msj_nota(cantidad);
                       // opcion1 = 0;
                       // opcion2 = 1;
                       // opcion3 = 2;
