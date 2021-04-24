@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import  'Cuestionario.dart';
+
+Cuestionario cuestionario = new Cuestionario();
 
 void main() => runApp(MyApp());
 
@@ -9,9 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Laboratorio 01 Diego Jose Cortes Moreno',
+      title: 'Laboratorio 02 Diego Jose Cortes Moreno',
       home: Scaffold(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.black,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -29,6 +33,32 @@ class Laboratorio extends StatefulWidget {
 }
 
 class _LaboratorioState extends State<Laboratorio> {
+
+  List<String> opciones = cuestionario.getOpciones();
+  void verificarRespuesta(String respuestaUsuario){
+    String respuestaCorrecta = cuestionario.getRespuesta();
+
+    setState(() {
+
+      if(cuestionario.esFinal() == true){
+        Alert(
+          context: context,
+          title: 'Final!',
+          desc: 'Llegaste al final de la prueba'
+        ).show();
+        cuestionario.resetar();
+        valorPregunta = [];
+        cantidad = 0;
+      }else{
+        if (respuestaCorrecta == respuestaUsuario){
+          valorPregunta.add(Icon(Icons.check , color: Colors.green ));
+          cantidad++;
+        }else{
+          valorPregunta.add(Icon(Icons.close , color: Colors.red ));
+        }
+      }
+    });
+  }
 
    void msj_nota (int nota) {
      if(nota >= 0 && nota <= 2) {
@@ -92,61 +122,7 @@ class _LaboratorioState extends State<Laboratorio> {
         opcion1 = 0,
         opcion2 = 1,
         opcion3 = 2;
-    List<String> Preguntas =
-    ['Cual es el resultado de la \n siguiente operacion \n 12 + 32 (24 / 6)?',
-      'Que es un numero imaginario?',
-      'Cuanto  da el resultado de la siguiente operacion \n 4 (12 - 25 / 5)',
-      'Qué esun triángulo isósceles?',
-      'Cual es el resultado de la siguiente operacion \n 45 - 30 (273 / 3)?',
-      'año de Lanzamiento de Flutter',
-      'año de lanzamiento de linux',
-      'de que esta compuesta el agua',
-      'de que esta compuesto el Carbonato de Sodio', 'Fin'];
-    List<String> opciones = [
-      '130',
-      '140',
-      '135',
-      'Son numeros Complejos',
-      'Es un numero finito',
-      'Son numeros que estan fuera de los limites'
-      ,
-      '28',
-      '30',
-      '42',
-      'Es aquel triangulo que tiene diferente tamaño sus lados',
-      'Es aquel triangulo que tiene igual el tamaño sus lados',
-      'Es un triangulo que tiene dos lados de igual longuitud',
-      '1535',
-      '1365',
-      '1755',
-      '2015',
-      '2016',
-      '2017',
-      '1990',
-      '1991',
-      '1994',
-      'tres de oxigeno',
-      'dos atomos de hidrogreno y una de oxigeno',
-      'Con una de nitrogeno y una de Cloro',
-      'De dos de Sodio, una de carbono y tres Oxigeno',
-      'de una de calcio, una de carbono y y tres Oxigeno',
-      'Una de hiero, una de carbono y tres Oxigeno',
-      ' - ',
-      ' - ',
-      ' - '
-    ];
 
-    List<String> respuestas = [
-      '140',
-      'Son numeros Complejos',
-      '28',
-      'Es un triangulo que tiene dos lados de igual longuitud',
-      '1365',
-      '2017',
-      '1991',
-      'dos atomos de hidrogreno y una de oxigeno',
-      'De dos de Sodio, una de carbono y tres Oxigeno'
-    ];
 
 
     @override
@@ -161,11 +137,11 @@ class _LaboratorioState extends State<Laboratorio> {
               padding: EdgeInsets.all(15),
               child: Center(
                 child: Text(
-                  Preguntas[numeroPregunta],
+                  cuestionario.getPregunta(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 24,
-                      color: Colors.black
+                      color: Colors.white
                   ),
                 ),
               ),
@@ -176,7 +152,7 @@ class _LaboratorioState extends State<Laboratorio> {
               padding: EdgeInsets.all(15.0),
               child: FlatButton(
                 textColor: Colors.black,
-                color: Colors.blueAccent,
+                color: Colors.white,
                 child: Text(
                   opciones[opcion1],
                   style: TextStyle(
@@ -185,16 +161,10 @@ class _LaboratorioState extends State<Laboratorio> {
                   ),
                 ),
                 onPressed: () {
-                  if (respuestas[numeroPregunta] == opciones[opcion1]) {
-                    valorPregunta.add(Icon(Icons.check, color: Colors.green));
-                    //final player = AudioPlayer();
-                    //player.play('note1.wav');
-                    cantidad++;
-                  } else {
-                    valorPregunta.add(Icon(Icons.close, color: Colors.red));
-                  }
+                  verificarRespuesta(opciones[opcion1]);
 
                   setState(() {
+                    cuestionario.siguientePregunta();
                     if (valorPregunta.length == 9) {
                       // showDialog(
                       //     context: context,
@@ -209,15 +179,15 @@ class _LaboratorioState extends State<Laboratorio> {
                       //       ],
                       //     ));
                       msj_nota(cantidad);
-                      opcion1 = 0;
-                      opcion2 = 1;
-                      opcion3 = 2;
-                      numeroPregunta = 0;
+                      // opcion1 = 0; 
+                      // opcion2 = 1;
+                      // opcion3 = 2;
+                      // numeroPregunta = 0;
                     } else {
-                      opcion1 += 3;
-                      opcion2 += 3;
-                      opcion3 += 3;
-                      numeroPregunta++;
+                      // opcion1 += 3;
+                      // opcion2 += 3;
+                      // opcion3 += 3;
+                      // numeroPregunta++;
                     }
                   });
                 },
@@ -238,15 +208,9 @@ class _LaboratorioState extends State<Laboratorio> {
                   ),
                 ),
                 onPressed: () {
-                  if (respuestas[numeroPregunta] == opciones[opcion2]) {
-                    valorPregunta.add(Icon(Icons.check, color: Colors.green));
-                    //final player = AudioPlayer();
-                    //player.play('note1.wav');
-                    cantidad++;
-                  } else {
-                    valorPregunta.add(Icon(Icons.close, color: Colors.red));
-                  }
+                  verificarRespuesta(opciones[opcion2]);
                   setState(() {
+                    cuestionario.siguientePregunta();
                     if (valorPregunta.length == 9) {
                       // showDialog(
                       // context: context,
@@ -261,15 +225,15 @@ class _LaboratorioState extends State<Laboratorio> {
                       //   ],
                       // ));
                       msj_nota(cantidad);
-                      opcion1 = 0;
-                      opcion2 = 1;
-                      opcion3 = 2;
-                      numeroPregunta = 0;
+                      // opcion1 = 0;
+                      // opcion2 = 1;
+                      // opcion3 = 2;
+                      // numeroPregunta = 0;
                     } else {
-                      opcion1 += 3;
-                      opcion2 += 3;
-                      opcion3 += 3;
-                      numeroPregunta++;
+                      // opcion1 += 3;
+                      // opcion2 += 3;
+                      // opcion3 += 3;
+                      // numeroPregunta++;
                     }
                   });
                 },
@@ -290,16 +254,10 @@ class _LaboratorioState extends State<Laboratorio> {
                   ),
                 ),
                 onPressed: () {
-                  if (respuestas[numeroPregunta] == opciones[opcion3]) {
-                    valorPregunta.add(Icon(Icons.check, color: Colors.green));
-                    //final player = AudioPlayer();
-                    //player.play('note1.wav');
-                    cantidad++;
-                  } else {
-                    valorPregunta.add(Icon(Icons.close, color: Colors.red));
-                  }
+                  verificarRespuesta(opciones[opcion3]);
 
                   setState(() {
+                    cuestionario.siguientePregunta();
                     if (valorPregunta.length == 9) {
                       // showDialog(
                       //     context: context,
@@ -314,16 +272,16 @@ class _LaboratorioState extends State<Laboratorio> {
                       //             )
                       //           ],
                       //         ));
-                      msj_nota(cantidad);
-                      opcion1 = 0;
-                      opcion2 = 1;
-                      opcion3 = 2;
+                      // msj_nota(cantidad);
+                      // opcion1 = 0;
+                      // opcion2 = 1;
+                      // opcion3 = 2;
                       numeroPregunta = 0;
                     } else {
-                      opcion1 += 3;
-                      opcion2 += 3;
-                      opcion3 += 3;
-                      numeroPregunta++;
+                      // opcion1 += 3;
+                      // opcion2 += 3;
+                      // opcion3 += 3;
+                      // numeroPregunta++;
                     }
                   });
                 },
