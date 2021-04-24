@@ -6,7 +6,7 @@ class Cuestionario{
   [
     Pregunta(p:'Cual es el resultado de la \n siguiente operacion \n 12 + 32 (24 / 6)?', r: '140',
         op: ['130','140','135']),
-    Pregunta(p:'Que es un numero imaginario?', r: 'Son numeros Complejos',op: [ 'Son numeros Complejos',
+    Pregunta(p:'Que es un numero imaginario?', r: 'Son numeros Complejos',op: ['Son numeros Complejos',
       'Es un numero finito','Son numeros que estan fuera de los limites'] ),
     Pregunta(p:'Cuanto  da el resultado de la siguiente operacion \n 4 (12 - 25 / 5)',r: '28' ,op: ['28',
       '30','42']),
@@ -21,7 +21,7 @@ class Cuestionario{
         op: ['tres de oxigeno','dos atomos de hidrogreno y una de oxigeno','Con una de nitrogeno y una de Cloro',]),
     Pregunta(p: 'de que esta compuesto el Carbonato de Sodio',r:'De dos de Sodio, una de carbono y tres Oxigeno',
         op:['De dos de Sodio, una de carbono y tres Oxigeno','de una de calcio, una de carbono y y tres Oxigeno',
-          'Una de hiero, una de carbono y tres Oxigeno',]),
+          'Una de hiero, una de carbono y tres Oxigeno']),
   ];
 
   String getPregunta(){

@@ -151,79 +151,23 @@ class _LaboratorioState extends State<Laboratorio> {
             child: Padding(
               padding: EdgeInsets.all(15.0),
               child: FlatButton(
-                textColor: Colors.black,
-                color: Colors.white,
+                textColor: Colors.white,
+                color: Colors.yellow,
                 child: Text(
                   opciones[opcion1],
                   style: TextStyle(
                       fontSize: 18.0,
-                      color: Colors.black
+                      color: Colors.white
                   ),
                 ),
                 onPressed: () {
+                  opciones = cuestionario.getOpciones();
                   verificarRespuesta(opciones[opcion1]);
 
                   setState(() {
                     cuestionario.siguientePregunta();
                     if (valorPregunta.length == 9) {
-                      // showDialog(
-                      //     context: context,
-                      //     builder: (context) => AlertDialog(
-                      //       title: Text('nota'),
-                      //       content: Text('obtuvo una nota de $cantidad / 9'),
-                      //       actions: <Widget>[
-                      //         FlatButton(
-                      //           child: Text('Ok'),
-                      //           onPressed: (){},
-                      //         )
-                      //       ],
-                      //     ));
-                      msj_nota(cantidad);
-                      // opcion1 = 0; 
-                      // opcion2 = 1;
-                      // opcion3 = 2;
-                      // numeroPregunta = 0;
-                    } else {
-                      // opcion1 += 3;
-                      // opcion2 += 3;
-                      // opcion3 += 3;
-                      // numeroPregunta++;
-                    }
-                  });
-                },
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(15.0),
-              child: FlatButton(
-                textColor: Colors.black,
-                color: Colors.red,
-                child: Text(
-                  opciones[opcion2],
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.black
-                  ),
-                ),
-                onPressed: () {
-                  verificarRespuesta(opciones[opcion2]);
-                  setState(() {
-                    cuestionario.siguientePregunta();
-                    if (valorPregunta.length == 9) {
-                      // showDialog(
-                      // context: context,
-                      // builder: (context) => AlertDialog(
-                      //   title: Text('nota'),
-                      //   content: Text('obtuvo una nota de $cantidad / 9'),
-                      //   actions: <Widget>[
-                      //     FlatButton(
-                      //       child: Text('Ok'),
-                      //         onPressed: (){},
-                      //     )
-                      //   ],
-                      // ));
+
                       msj_nota(cantidad);
                       // opcion1 = 0;
                       // opcion2 = 1;
@@ -244,34 +188,56 @@ class _LaboratorioState extends State<Laboratorio> {
             child: Padding(
               padding: EdgeInsets.all(15.0),
               child: FlatButton(
-                textColor: Colors.black,
+                textColor: Colors.white,
+                color: Colors.red,
+                child: Text(
+                  opciones[opcion2],
+                  style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white
+                  ),
+                ),
+                onPressed: () {
+                  opciones = cuestionario.getOpciones();
+                  verificarRespuesta(opciones[opcion2]);
+                  setState(() {
+                    cuestionario.siguientePregunta();
+                    if (valorPregunta.length == 9) {
+                      msj_nota(cantidad);
+                      // opcion1 = 0;
+                      // opcion2 = 1;
+                      // opcion3 = 2;
+                      // numeroPregunta = 0;
+                    } else {
+                      // opcion1 += 3;
+                      // opcion2 += 3;
+                      // opcion3 += 3;
+                      // numeroPregunta++;
+                    }
+                  });
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(15.0),
+              child: FlatButton(
+                textColor: Colors.white,
                 color: Colors.orange,
                 child: Text(
                   opciones[opcion3],
                   style: TextStyle(
                       fontSize: 18.0,
-                      color: Colors.black
+                      color: Colors.white
                   ),
                 ),
                 onPressed: () {
                   verificarRespuesta(opciones[opcion3]);
-
+                  opciones = cuestionario.getOpciones();
                   setState(() {
                     cuestionario.siguientePregunta();
                     if (valorPregunta.length == 9) {
-                      // showDialog(
-                      //     context: context,
-                      //     builder: (context) =>
-                      //         AlertDialog(
-                      //           title: Text('nota'),
-                      //           content: Text('obtuvo una nota de $cantidad / 9'),
-                      //           actions: <Widget>[
-                      //             FlatButton(
-                      //               child: Text('Ok'),
-                      //               onPressed: () {},
-                      //             )
-                      //           ],
-                      //         ));
                       // msj_nota(cantidad);
                       // opcion1 = 0;
                       // opcion2 = 1;
