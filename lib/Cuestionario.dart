@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import 'pregunta.dart';
 
 class Cuestionario{
@@ -5,51 +7,22 @@ class Cuestionario{
        opcion1 = 0,
        opcion2 = 1,
        opcion3 = 2;
+   int opcion4 = 3;
   List<Pregunta> Preguntas =
   [
-    Pregunta(p:'Cual es el resultado de la \n siguiente operacion \n 12 + 32 (24 / 6)?', r: '140',
-        ),
-    Pregunta(p:'Que es un numero imaginario?', r: 'Son numeros Complejos'),
-    Pregunta(p:'Cuanto  da el resultado de la siguiente operacion \n 4 (12 - 25 / 5)',r: '28'),
-    Pregunta(p:'Qué esun triángulo isósceles?',r:'Es un triangulo que tiene dos lados de igual longuitud' ,
-       ),
-    Pregunta(p: 'Cual es el resultado de la siguiente operacion \n 45 - 30 (273 / 3)?',r: '1365' ,),
-    Pregunta(p: 'año de Lanzamiento de Flutter',r:'2017'),
-    Pregunta(p: 'año de lanzamiento de linux',r: '1991'),
-    Pregunta(p: 'de que esta compuesta el agua', r: 'dos atomos de hidrogreno y una de oxigeno'),
-    Pregunta(p: 'de que esta compuesto el Carbonato de Sodio',r:'De dos de Sodio, una de carbono y tres Oxigeno'),
+    Pregunta(p:'¿Cuál es el animal más venenoso del mundo? ', r: 'asset/Medusas-de-mar.png'),
+    Pregunta(p:'Su corazón pesa más de 11 kg', r: 'asset/jirafa.jpg'),
+    Pregunta(p:'Pueden usar su cola para comunicarse entre ellos',r: 'asset/zorro.jpg'),
+    Pregunta(p:'¿Qué animal tiene 47 dientes?',r:'asset/mosquito.jpg'),
+    Pregunta(p: '¿Cuál de estas especies no puede caminar?',r: 'asset/libelula.jpeg'),
   ];
 
-   List<String> opciones = [
-   '130',
-   '140',
-   '135',
-   'Son numeros Complejos',
-   'Es un numero finito',
-   'Son numeros que estan fuera de los limites'
-   ,
-   '28',
-   '30',
-   '42',
-   'Es aquel triangulo que tiene diferente tamaño sus lados',
-   'Es aquel triangulo que tiene igual el tamaño sus lados',
-   'Es un triangulo que tiene dos lados de igual longuitud',
-   '1535',
-   '1365',
-   '1755',
-   '2015',
-   '2016',
-   '2017',
-   '1990',
-   '1991',
-   '1994',
-   'tres de oxigeno',
-   'dos atomos de hidrogreno y una de oxigeno',
-   'Con una de nitrogeno y una de Cloro',
-   'De dos de Sodio, una de carbono y tres Oxigeno',
-   'de una de calcio, una de carbono y y tres Oxigeno',
-   'Una de hiero, una de carbono y tres Oxigeno'
-   ];
+
+  List<String> opcionesImg = ['asset/Medusas-de-mar.png','asset/alacran.jpg','asset/serpiente-cascabel.jpg',
+    'asset/spider-sidney.jpg','asset/jaguar.jpg', 'asset/jirafa.jpg','asset/jabali.jpg','asset/leon.jpg','asset/elefante.jpg',
+    'asset/zorro.jpg', 'asset/lemur.jpg', 'asset/camaleon.jpg', 'asset/mosquito.jpg','asset/nutria.jpg','asset/leon.jpg',
+    'asset/tiburon.jpg', 'asset/mosca.jpg','asset/mosquito.jpg','asset/libelula.jpeg','asset/abeja.jpg'];
+
 
   String getPregunta(){
       return Preguntas[numeroPregunta].textoPregunta;
@@ -62,9 +35,10 @@ class Cuestionario{
   void siguientePregunta(){
     if(numeroPregunta < Preguntas.length - 1){
       numeroPregunta++;
-      opcion1 += 3;
-      opcion2 += 3;
-      opcion3 += 3;
+      opcion1 += 4;
+      opcion2 += 4;
+      opcion3 += 4;
+      opcion4 += 4;
     }
   }
 
@@ -81,5 +55,6 @@ class Cuestionario{
      opcion1 = 0;
      opcion2 = 1;
      opcion3 = 2;
+     opcion4 = 3;
    }
 }

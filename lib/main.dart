@@ -1,3 +1,4 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
-            child: Laboratorio(),
+            child: Parcial02(),
           )
         ),
       ),
@@ -27,14 +28,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Laboratorio extends StatefulWidget {
+class Parcial02 extends StatefulWidget {
   @override
-  _LaboratorioState createState() => _LaboratorioState();
+  _Parcial02State createState() => _Parcial02State();
 }
 
-class _LaboratorioState extends State<Laboratorio> {
+class _Parcial02State extends State<Parcial02> {
 
-
+   int cantidad = 0;
   void verificarRespuesta(String respuestaUsuario){
     String respuestaCorrecta = cuestionario.getRespuesta();
 
@@ -44,7 +45,7 @@ class _LaboratorioState extends State<Laboratorio> {
         Alert(
           context: context,
           title: 'Final!',
-          desc: 'Llegaste al final de la prueba'
+          desc: 'Llegaste al final de la prueba tiene una puntuacion de: $cantidad/5 '
         ).show();
         cuestionario.resetar();
         valorPregunta = [];
@@ -52,7 +53,9 @@ class _LaboratorioState extends State<Laboratorio> {
       }else{
         if (respuestaCorrecta == respuestaUsuario){
           valorPregunta.add(Icon(Icons.check , color: Colors.green ));
-          cantidad++;
+          cantidad += 1;
+          final player = AudioCache();
+          player.play('note1.wav');
         }else{
           valorPregunta.add(Icon(Icons.close , color: Colors.red ));
         }
@@ -118,7 +121,6 @@ class _LaboratorioState extends State<Laboratorio> {
    }
     List<Icon> valorPregunta = [];
     int numeroPregunta = 0,
-        cantidad = 0,
         opcion1 = 0,
         opcion2 = 1,
         opcion3 = 2;
@@ -141,123 +143,167 @@ class _LaboratorioState extends State<Laboratorio> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 24,
-                      color: Colors.white
+                      color: Colors.white,
+                      fontFamily: 'Montserrat'
                   ),
                 ),
               ),
             ),
           ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(15.0),
-              child: FlatButton(
-                textColor: Colors.white,
-                color: Colors.yellow.shade700,
-                child: Text(
-                  cuestionario.opciones[cuestionario.opcion1],
-                  style: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.white
-                  ),
-                ),
-                onPressed: () {
 
-                  verificarRespuesta( cuestionario.opciones[cuestionario.opcion1]);
 
-                  setState(() {
-                    cuestionario.siguientePregunta();
-                    if (valorPregunta.length == 9) {
+          Row(
+           children: <Widget>[
+             Expanded(
+               child: Padding(
+                 padding: EdgeInsets.all(15.0),
+                 child: FlatButton(
+                   textColor: Colors.white,
+                   color: Colors.black,
+                   child: Image(
+                     image: AssetImage(cuestionario.opcionesImg[cuestionario.opcion1]),
+                     width: 200,
+                   ),
+                   onPressed: () {
 
-                      msj_nota(cantidad);
-                      // opcion1 = 0;
-                      // opcion2 = 1;
-                      // opcion3 = 2;
-                      // numeroPregunta = 0;
-                    } else {
-                      // opcion1 += 3;
-                      // opcion2 += 3;
-                      // opcion3 += 3;
-                      // numeroPregunta++;
-                    }
-                  });
-                },
-              ),
-            ),
+                     verificarRespuesta(cuestionario.opcionesImg[cuestionario.opcion1]);
+
+                     setState(() {
+                       cuestionario.siguientePregunta();
+                       if (valorPregunta.length == 5) {
+
+                         msj_nota(cantidad);
+                         // opcion1 = 0;
+                         // opcion2 = 1;
+                         // opcion3 = 2;
+                         // numeroPregunta = 0;
+                       } else {
+                         // opcion1 += 3;
+                         // opcion2 += 3;
+                         // opcion3 += 3;
+                         // numeroPregunta++;
+                       }
+                     });
+                   },
+                 ),
+               ),
+             ),
+             Expanded(
+               child: Padding(
+                 padding: EdgeInsets.all(15.0),
+                 child: FlatButton(
+                   textColor: Colors.white,
+                   color: Colors.black,
+                   child: Image(
+                        image: AssetImage(cuestionario.opcionesImg[cuestionario.opcion2]),
+                        width: 200,
+                    ),
+                   onPressed: () {
+
+                     verificarRespuesta(cuestionario.opcionesImg[cuestionario.opcion2]);
+                     setState(() {
+                       cuestionario.siguientePregunta();
+                       if (valorPregunta.length == 5) {
+                         msj_nota(cantidad);
+                         // opcion1 = 0;
+                         // opcion2 = 1;
+                         // opcion3 = 2;
+                         // numeroPregunta = 0;
+                       } else {
+                         // opcion1 += 3;
+                         // opcion2 += 3;
+                         // opcion3 += 3;
+                         // numeroPregunta++;
+                       }
+                     });
+                   },
+                 ),
+               ),
+             ),
+           ],
           ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(15.0),
-              child: FlatButton(
-                textColor: Colors.white,
-                color: Colors.red,
-                child: Text(
-                  cuestionario.opciones[cuestionario.opcion2],
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: FlatButton(
+                    textColor: Colors.white,
+                    color: Colors.black,
+                    child: Image(
+                      image: AssetImage(cuestionario.opcionesImg[cuestionario.opcion3]),
+                      width: 200,
+                    ),
+                    onPressed: () {
+                      verificarRespuesta(cuestionario.opcionesImg[cuestionario.opcion3]);
+
+                      setState(() {
+                        cuestionario.siguientePregunta();
+                        if (valorPregunta.length == 5) {
+                          msj_nota(cantidad);
+                          // opcion1 = 0;
+                          // opcion2 = 1;
+                          // opcion3 = 2;
+                          numeroPregunta = 0;
+                        } else {
+                          // opcion1 += 3;
+                          // opcion2 += 3;
+                          // opcion3 += 3;
+                          // numeroPregunta++;
+                        }
+                      });
+                    },
                   ),
                 ),
-                onPressed: () {
-
-                  verificarRespuesta(cuestionario.opciones[cuestionario.opcion2]);
-                  setState(() {
-                    cuestionario.siguientePregunta();
-                    if (valorPregunta.length == 9) {
-                      msj_nota(cantidad);
-                      // opcion1 = 0;
-                      // opcion2 = 1;
-                      // opcion3 = 2;
-                      // numeroPregunta = 0;
-                    } else {
-                      // opcion1 += 3;
-                      // opcion2 += 3;
-                      // opcion3 += 3;
-                      // numeroPregunta++;
-                    }
-                  });
-                },
               ),
-            ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: FlatButton(
+                    textColor: Colors.white,
+                    color: Colors.black,
+                    child: Image(
+                      image: AssetImage(cuestionario.opcionesImg[cuestionario.opcion4]),
+                      width: 200,
+                    ),
+                    onPressed: () {
+                      verificarRespuesta(cuestionario.opcionesImg[cuestionario.opcion4]);
+
+                      setState(() {
+                        cuestionario.siguientePregunta();
+                        if (valorPregunta.length == 5) {
+                          msj_nota(cantidad);
+                          // opcion1 = 0;
+                          // opcion2 = 1;
+                          // opcion3 = 2;
+                          numeroPregunta = 0;
+                        } else {
+                          // opcion1 += 3;
+                          // opcion2 += 3;
+                          // opcion3 += 3;
+                          // numeroPregunta++;
+                        }
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(15.0),
-              child: FlatButton(
-                textColor: Colors.white,
-                color: Colors.orange,
-                child: Text(
-                  cuestionario.opciones[cuestionario.opcion3],
-                  style: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.white
-                  ),
-                ),
-                onPressed: () {
-                  verificarRespuesta(cuestionario.opciones[cuestionario.opcion3]);
 
-                  setState(() {
-                    cuestionario.siguientePregunta();
-                    if (valorPregunta.length == 9) {
-                       msj_nota(cantidad);
-                      // opcion1 = 0;
-                      // opcion2 = 1;
-                      // opcion3 = 2;
-                      numeroPregunta = 0;
-                    } else {
-                      // opcion1 += 3;
-                      // opcion2 += 3;
-                      // opcion3 += 3;
-                      // numeroPregunta++;
-                    }
-                  });
-                },
-              ),
-            ),
+          SizedBox(
+            width: 50,
+            height: 50,
           ),
 
           Row(
             children: valorPregunta,
-          )
+          ),
+
+          SizedBox(
+            width: 100,
+            height: 100,
+          ),
         ],
       );
     }
